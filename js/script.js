@@ -40,7 +40,6 @@ document.getElementById("boton").addEventListener("click", () => {
   const geoloc = `https://api.openweathermap.org/geo/1.0/direct?q=${city_name},${country_code}&limit=1&appid=1402e0888a083fc574f11db2487f8885`;
   fetch(geoloc)
     .then((response) => {
-      console.log("respuesta json loc");
       return response.json();
     })
     .then((data) => {
@@ -50,7 +49,6 @@ document.getElementById("boton").addEventListener("click", () => {
       } else {
         console.error("No se encontró la ubicación.");
       }
-      console.log("Esta es al dada de geo loc");
     });
   function obtenerClima(lat, lon) {
     const urlbase = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1402e0888a083fc574f11db2487f8885`;
@@ -60,7 +58,6 @@ document.getElementById("boton").addEventListener("click", () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Esta es la dada");
         console.log(data);
        // const celsiusTemp = kelvinToCelsius(data.main.temp);
         document.getElementById("response-temp").innerText =
