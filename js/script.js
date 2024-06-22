@@ -1,30 +1,48 @@
 let country_code;
 let city_name;
-//selecciona la clase
-let temperature = document.querySelector(".temp");
-let summary = document.querySelector(".summary");
-let icon = document.querySelector(".icon");
-let loc = document.querySelector(".location");
 
+//selecciona la clase
 function kelvinToCelsius(kelvin) {
   return kelvin - 273.15;
 }
 function obtenerEstadoNubosidad(cloudiness) {
   if (cloudiness === 0) {
-      return "Despejado";
+    return "Despejado";
   } else if (cloudiness > 0 && cloudiness <= 25) {
-      return "Mayormente despejado";
+    return "Mayormente despejado";
   } else if (cloudiness > 25 && cloudiness <= 50) {
-      return "Parcialmente nublado";
+    return "Parcialmente nublado";
   } else if (cloudiness > 50 && cloudiness <= 75) {
-      return "Mayormente nublado";
+    return "Mayormente nublado";
   } else if (cloudiness > 75 && cloudiness < 100) {
-      return "Nublado";
+    return "Nublado";
   } else if (cloudiness === 100) {
-      return "Cielo Cubierto";
+    return "Cielo Cubierto";
   } else {
-      return "Datos de nubosidad no válidos";
+    return "Datos de nubosidad no válidos";
   }
+}
+function obtenerDireccionViento(deg) {
+  const direcciones = [
+    "Norte",
+    "Norte-noreste",
+    "Noreste",
+    "Este-noreste",
+    "Este",
+    "	Este-sureste",
+    "Sureste ",
+    "Sur-sureste	",
+    "Sur",
+    "Sur-suroeste	",
+    "Sur oeste",
+    "Oeste-suroeste	",
+    "Oeste",
+    "	Oeste-noroeste",
+    "Noroeste",
+    "Nor-noroeste",
+  ];
+  const index = Math.round((deg % 360) / 22.5);
+  return direcciones[index % 16];
 }
 function obtenerValorCountry() {
   let valor = document.getElementById("inputCountry").value;
@@ -59,20 +77,25 @@ document.getElementById("boton").addEventListener("click", () => {
       })
       .then((data) => {
         console.log(data);
-       // const celsiusTemp = kelvinToCelsius(data.main.temp);
         document.getElementById("response-temp").innerText =
           "Temperatura: " + kelvinToCelsius(data.main.temp).toFixed(2) + "°C";
         document.getElementById("response-temp-sens").innerText =
-          "Sensación térmica: " + kelvinToCelsius(data.main.feels_like).toFixed(2) + "°C";
+          "Sensación térmica: " +
+          kelvinToCelsius(data.main.feels_like).toFixed(2) +
+          "°C";
         document.getElementById("humedad").innerText =
           "Humedad: " + data.main.humidity + "%";
         document.getElementById("condicion").innerText =
           "Condición: " + obtenerEstadoNubosidad(data.clouds.all);
         document.getElementById("viento").innerText = "Viento: ";
         document.getElementById("direccion").innerText =
-          "Dirección: " + data.winddir_compass;
+          "Dirección: " + obtenerDireccionViento(data.wind.deg);
         document.getElementById("velocidad").innerText =
-          "Velocidad: " + data.feelslike_c;
+          "Velocidad: " + data.wind.speed;
+        document.getElementById("visibilidad").innerText =
+          "Visibilidad: " + data.visibility + " KM";
+        document.getElementById("precipitaciones").innerText =
+          "Precipitaciones: " + data.rain["1h"] + "mm";
       });
   }
 });
