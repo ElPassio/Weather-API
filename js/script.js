@@ -1,11 +1,11 @@
-let country;
-let pCode;
+let country_code;
+let city_name;
 //selecciona la clase
 let temperature = document.querySelector(".temp");
 let summary = document.querySelector(".summary");
 let icon = document.querySelector(".icon");
 let loc = document.querySelector(".location");
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
       
         function obtenerValorCountry() {
             
@@ -18,11 +18,23 @@ const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
             return valor;
             }
         document.getElementById("boton").addEventListener("click", () => {
-                country = obtenerValorCountry();
-                pCode = obtenerValorCP();
-                const urlbase = `https://api.weatherunlocked.com/api/current/${country}.${pCode}?app_id=7be4b099&app_key=5a8663ba90b28b82f441584f89d1690a`;
-                apiUrl = proxyUrl+urlbase;
-                fetch(apiUrl)
+                //country = obtenerValorCountry();
+                city_name = obtenerValorCP();
+                const geoloc = `http://api.openweathermap.org/geo/1.0/direct?q=${city_name},ar&limit=1&appid=1402e0888a083fc574f11db2487f8885`
+                fetch(geoloc)
+                .then((response) => {
+                    console.log("respuesta json loc");
+                return response.json();
+                
+                })
+                .then((data) => {
+                    console.log("Esta es al dada de geo loc");
+                    console.log(data.lat);
+                    console.log(data.lon);
+
+                     const urlbase = `http://api.openweathermap.org/data/2.5/weather?lat=${data_geo.lat}&lon=${data_geo.lon}&appid=1402e0888a083fc574f11db2487f8885`;
+               
+                fetch(urlbase)
                 .then((response) => {
                     console.log("respuesta json");
                 return response.json();
@@ -39,6 +51,9 @@ const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
                     document.getElementById("direccion").innerText = "Dirección: " + data.winddir_compass;
                     document.getElementById("velocidad").innerText = "Velocidad: " + data.feelslike_c;
                 })
+                })
+
+                
             }); 
     
 
