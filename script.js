@@ -21,7 +21,7 @@ let loc = document.querySelector(".location");
         document.getElementById("boton").addEventListener("click", () => {
                 country = obtenerValorCountry();
                 pCode = obtenerValorCP();
-                const urlbase = `http://api.weatherunlocked.com/api/current/${country}.${pCode}?app_id=7be4b099&app_key=5a8663ba90b28b82f441584f89d1690a`;
+                const urlbase = `https://api.weatherunlocked.com/api/current/${country}.${pCode}?app_id=7be4b099&app_key=5a8663ba90b28b82f441584f89d1690a`;
                 
                 fetch(urlbase)
                 .then((response) => {
