@@ -5,8 +5,7 @@ let temperature = document.querySelector(".temp");
 let summary = document.querySelector(".summary");
 let icon = document.querySelector(".icon");
 let loc = document.querySelector(".location");
-        //country = prompt("Ingrese un Pais(abreviacion, 2 letras)");
-        //pCode = prompt("Ingrese codigo postal");
+
       
         function obtenerValorCountry() {
             
