@@ -5,7 +5,7 @@ let temperature = document.querySelector(".temp");
 let summary = document.querySelector(".summary");
 let icon = document.querySelector(".icon");
 let loc = document.querySelector(".location");
-
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
       
         function obtenerValorCountry() {
             
@@ -21,8 +21,8 @@ let loc = document.querySelector(".location");
                 country = obtenerValorCountry();
                 pCode = obtenerValorCP();
                 const urlbase = `https://api.weatherunlocked.com/api/current/${country}.${pCode}?app_id=7be4b099&app_key=5a8663ba90b28b82f441584f89d1690a`;
-                
-                fetch(urlbase)
+                apiUrl = proxyUrl+urlbase;
+                fetch(apiUrl)
                 .then((response) => {
                     console.log("respuesta json");
                 return response.json();
